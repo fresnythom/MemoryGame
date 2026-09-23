@@ -12,3 +12,5 @@ let images = [];
 for (let i = imgStart; i < imgStart + 7; i++) {
   images.push(`https://picsum.photos/id/${i}/${dimension}/${dimension}}`);
 }
+
+let cards = [...images, ...images];
