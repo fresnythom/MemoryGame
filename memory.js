@@ -1,3 +1,4 @@
+
 const board = document.getElementById("game-board");
 const movesDisplay = document.getElementById("moves");
 const timerDisplay = document.getElementById("timer");
@@ -18,21 +19,22 @@ let seconds = 0;
 let timerInterval = null;
 
 
+const images = [];
+for (let i = imgStart; i <= imgStart + 7; i++) {
+  images.push(`https://picsum.photos/seed/${i}/${dimension}/${dimension}`);
+}
+cards = [...images, ...images];
 
-let images = [];
-for (let i = imgStart; i < imgStart + 7; i++) {
-  images.push(`https://picsum.photos/id/${i}/${dimension}/${dimension}}`);
+// 4. Le mélange des cartes (Fisher-Yates)
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // On échange les deux places
+  }
 }
 
-let cards = [...images, ...images];
 
-
-function shuffle(array){
-    for (let i = array.lenght -1; i > 0; i--){
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
+/
 
 function initGame() {
   board.innerHTML = "";
@@ -54,8 +56,7 @@ function initGame() {
     card.classList.add("card");
     card.setAttribute("role", "button");
     card.setAttribute("tabindex", "0");
-    card.dataset.value = imgUrl; // On cache l'URL de l'image dans la carte
-    board.appendChild(card);
+    card.dataset.value = imgUrl; 
 
     // Quand on clique, on appelle la fonction de gestion du clic
     card.addEventListener("click", () => handleCardClick(card));
@@ -65,19 +66,23 @@ function initGame() {
   startTimer();
 }
 
+
+
 function handleCardClick(card) {
+ 
   if (lockBoard || card.classList.contains("matched") || card === firstCard || card.firstChild) {
-    return; 
+    return;
   }
 
-  revealCard(card);
+  revealCard(card); // Tout est bon, on affiche l'image de la carte
+
   if (!firstCard) {
-    firstCard = card; 
+    firstCard = card; // C'est la première carte du tour
     return;
   }
 
   secondCard = card;
-  lockBoard = true;
+  lockBoard = true; // On bloque le plateau le temps de vérifier
   moves++;
   movesDisplay.textContent = `Coups : ${moves}`;
 
@@ -102,11 +107,11 @@ function checkMatch() {
     resetTurn();
     checkVictory();
   } else {
-
+    // On attend 0.8 seconde avant de cacher les images
     setTimeout(() => {
       firstCard.innerHTML = "";
       secondCard.innerHTML = "";
-      resetTurn(); 
+      resetTurn(); // On débloque le plateau pour le coup suivant
     }, 800);
   }
 }
@@ -120,7 +125,7 @@ function resetTurn() {
 function checkVictory() {
   if (matchedCount === cards.length) {
     stopTimer();
-    resultDisplay.textContent = `Victoire ! Coups : ${moves} | Temps : ${formatTime(seconds)}`;
+    resultDisplay.textContent = `🎉 Victoire ! Coups : ${moves} | Temps : ${formatTime(seconds)}`;
   }
 }
 
