@@ -90,3 +90,57 @@ function revealCard(card) {
   img.alt = "Image de mémoire";
   card.appendChild(img);
 }
+
+
+function checkMatch() {
+  const isMatch = firstCard.dataset.value === secondCard.dataset.value;
+
+  if (isMatch) {
+    firstCard.classList.add("matched");
+    secondCard.classList.add("matched");
+    matchedCount += 2;
+    resetTurn();
+    checkVictory();
+  } else {
+
+    setTimeout(() => {
+      firstCard.innerHTML = "";
+      secondCard.innerHTML = "";
+      resetTurn(); 
+    }, 800);
+  }
+}
+
+function resetTurn() {
+  firstCard = null;
+  secondCard = null;
+  lockBoard = false;
+}
+
+function checkVictory() {
+  if (matchedCount === cards.length) {
+    stopTimer();
+    resultDisplay.textContent = `Victoire ! Coups : ${moves} | Temps : ${formatTime(seconds)}`;
+  }
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    seconds++;
+    timerDisplay.textContent = `Temps : ${formatTime(seconds)}`;
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+function formatTime(sec) {
+  const min = String(Math.floor(sec / 60)).padStart(2, "0");
+  const s = String(sec % 60).padStart(2, "0");
+  return `${min}:${s}`;
+}
+
+
+restartBtn.addEventListener("click", initGame);
+initGame();
