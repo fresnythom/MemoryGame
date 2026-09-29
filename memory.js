@@ -64,3 +64,29 @@ function initGame() {
   clearInterval(timerInterval);
   startTimer();
 }
+
+function handleCardClick(card) {
+  if (lockBoard || card.classList.contains("matched") || card === firstCard || card.firstChild) {
+    return; 
+  }
+
+  revealCard(card);
+  if (!firstCard) {
+    firstCard = card; 
+    return;
+  }
+
+  secondCard = card;
+  lockBoard = true;
+  moves++;
+  movesDisplay.textContent = `Coups : ${moves}`;
+
+  checkMatch();
+}
+
+function revealCard(card) {
+  const img = document.createElement("img");
+  img.src = card.dataset.value;
+  img.alt = "Image de mémoire";
+  card.appendChild(img);
+}
