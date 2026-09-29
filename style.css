@@ -1,59 +1,99 @@
-/* Réinitialisation de base */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  background: #1e1e2f;
+  color: white;
+  margin: 0;
+  padding: 20px;
+}
+
+header {
+  margin-bottom: 20px;
 }
 
 h1 {
-    margin-bottom: 20px;
-    color: #333;
+  margin-bottom: 10px;
 }
 
-/* Plateau de jeu en grille 4x4 */
-.game-board {
-    display: grid;
-    grid-template-columns: repeat(4, 80px);
-    grid-gap: 12px;
+#stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
 
-/* Style des cartes */
+#restart-btn {
+  padding: 8px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#restart-btn:hover {
+  background-color: #3e8e41;
+}
+
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(4, 150px);
+  gap: 10px;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 700px;
+}
+
 .card {
-    width: 80px;
-    height: 80px;
-    background-color: #2c3e50;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    cursor: pointer;
-    user-select: none;
-    transition: transform 0.2s, background-color 0.2s;
+  width: 150px;
+  height: 150px;
+  background-color: #444;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
 }
 
 .card:hover {
-    transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-/* Carte retournée */
-.card.flipped {
-    background-color: #ffffff;
-    border: 2px solid #2c3e50;
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-/* Carte validée (paire trouvée) */
 .card.matched {
-    background-color: #2ecc71;
-    cursor: default;
+  outline: 3px solid limegreen;
+  cursor: default;
+}
+
+#result {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffd700;
+  min-height: 30px;
+}
+
+/* Responsive : écrans plus petits */
+@media (max-width: 700px) {
+  #game-board {
+    grid-template-columns: repeat(4, 22vw);
+  }
+  .card {
+    width: 22vw;
+    height: 22vw;
+  }
 }

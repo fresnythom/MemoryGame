@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu du Memory</title>
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeu de Memory</title>
+  <link rel="icon" href="favicon.png">
+  <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
 
-    <header>
-        <h1>Jeu de Memory</h1>
-    </header>
+  <header>
+    <h1>🧠 Jeu de Memory</h1>
+    <div id="stats">
+      <span id="moves">Coups : 0</span>
+      <span id="timer">Temps : 00:00</span>
+    </div>
+    <button id="restart-btn">🔄 Rejouer</button>
+  </header>
 
-    <main>
-        
-        <div id="game-board" class="game-board">
-            
-        </div>
-    </main>
+  <main id="game-board"></main>
 
-   
-    <script src="memory.js"></script>
+  <p id="result"></p>
+
+  <script src="JS/script.js"></script>
 </body>
-
 </html>
